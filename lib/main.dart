@@ -49,8 +49,7 @@ class _HomePageViewState extends State<HomePageView> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
+    
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -89,11 +88,12 @@ class _HomePageViewState extends State<HomePageView> {
               width: 200,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  elevation: 10.0,
-                  primary: Colors.white70,
+                  elevation: 2.0,
+                  primary: Colors.white,
                   shadowColor: Colors.black54,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0)
+                    borderRadius: BorderRadius.circular(30.0),
+
                   )
                 ),
                 onPressed: (){},
