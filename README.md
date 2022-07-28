@@ -1,16 +1,9 @@
-# home_voice
+<h1><b>Jerico</b></h1>
 
-Voice recognition App for Moving Home
+Is an automation app for the B.A.R.F aka Bi-linear Automated Farming Rover
+These are the current UI Features available on the App.
 
-## Getting Started
+![](https://user-images.githubusercontent.com/91371411/181503468-c25c7112-954c-4b04-be2b-7cc4dfc22f03.gif)
 
-This project is a starting point for a Flutter application.
+<b><h3>Complete App coming Soon! </h3></b>
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
