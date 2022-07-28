@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:home_voice/my_flutter_app_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'add_tile.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -39,7 +42,7 @@ class _HomePageViewState extends State<HomePageView> {
     "Plant Seed",
     "Remote Control"
   ];
-
+  var response;
   var _icons = [
     MyFlutterApp.tractor,
     Icons.water_drop,
@@ -103,7 +106,10 @@ class _HomePageViewState extends State<HomePageView> {
 
                   )
                 ),
-                onPressed: (){},
+                onPressed: (){
+                  sendData(_operations[index]);
+
+                },
                 onLongPress: (){
                   if (index <5) {
                     _notApplicableDialog(index);
@@ -219,5 +225,61 @@ class _HomePageViewState extends State<HomePageView> {
         );
       },
     );
+  }
+  Future<void> _ResponseDialog(String response) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children:  <Widget>[
+                Text( response,
+                  style: TextStyle(
+                    fontFamily: "QuickSand",
+                    fontWeight: FontWeight.w300,
+                  ),),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK', style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: "Quicksand",
+                  fontWeight: FontWeight.bold
+              ),),
+              onPressed: () {
+                Navigator.of(context).pop();
+                setState(() {});
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  Future<http.Response> sendData(String action) async {
+    final response = await http.post(
+      Uri.parse("http://192.168.29.229:8000/"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'String'
+      },
+      body: jsonEncode(<String,String>{
+        "action": action
+      }),
+    );
+    if(response.statusCode == 200){
+      _ResponseDialog(response.body);
+    } else {
+      _ResponseDialog("Could not send Data to B.A.R.F");
+    }
+    return response;
+
   }
 }

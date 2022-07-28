@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class AddControlPage extends StatelessWidget {
   const AddControlPage({Key? key}) : super(key: key);
 
@@ -94,4 +93,5 @@ class _AddTileFormState extends State<AddTileForm> {
         ),
     ));
   }
+
 }
