@@ -40,7 +40,8 @@ class _HomePageViewState extends State<HomePageView> {
     "Irrigation",
     "Fertilizer",
     "Plant Seed",
-    "Remote Control"
+    "Remote Control",
+    "Stop Machine"
   ];
   var response;
   var _icons = [
@@ -48,7 +49,8 @@ class _HomePageViewState extends State<HomePageView> {
     Icons.water_drop,
     FontAwesome.beaker,
     FontAwesome5.seedling,
-    Icons.settings_remote
+    Icons.settings_remote,
+    Icons.highlight_off,
   ];
 
   void addToLists(String opName){
@@ -111,7 +113,7 @@ class _HomePageViewState extends State<HomePageView> {
 
                 },
                 onLongPress: (){
-                  if (index <5) {
+                  if (index <6) {
                     _notApplicableDialog(index);
                   } else {
                     _showDeleteDialog(index);
@@ -178,6 +180,7 @@ class _HomePageViewState extends State<HomePageView> {
             TextButton(
               child: const Text('YES', style: TextStyle(color: Colors.black, fontFamily: "Quicksand"),),
               onPressed: () {
+                sendDeleteData(index);
                 _operations.removeAt(index);
                 _icons.removeAt(index);
                 Navigator.of(context).pop();
@@ -278,6 +281,26 @@ class _HomePageViewState extends State<HomePageView> {
       _ResponseDialog(response.body);
     } else {
       _ResponseDialog("Could not send Data to B.A.R.F");
+    }
+    return response;
+
+  }
+  Future<http.Response> sendDeleteData(int index) async {
+    final response = await http.post(
+      Uri.parse("http://192.168.29.229:8000/delete_tile"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'String'
+      },
+      body: jsonEncode(<String,String>{
+        "action": _operations[index],
+        "index":index.toString()
+      }),
+    );
+    if(response.statusCode == 200){
+      _ResponseDialog(response.body);
+    } else {
+      _ResponseDialog("Deleted Successfully");
     }
     return response;
 
