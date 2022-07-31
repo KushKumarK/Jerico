@@ -35,6 +35,8 @@ android {
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
+
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -70,8 +72,23 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    def appName = "Jerico"
+                    def buildType = variant.buildType.name
+                    def newName
+                    if (buildType == 'debug'){
+                        newName = "app-${variant.getFlavorName()}-debug.apk"
+                    } else {
+                        newName = "${appName}${defaultConfig.versionName}_${variant.getFlavorName()}.apk"
+                    }
+                    outputFileName = newName
+                }
+            }
         }
     }
+
+
 
 }
 
