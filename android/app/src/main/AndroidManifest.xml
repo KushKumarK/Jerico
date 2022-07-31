@@ -13,7 +13,7 @@
         </intent>
     </queries>
    <application
-        android:label="home_voice"
+        android:label="Jerico"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
